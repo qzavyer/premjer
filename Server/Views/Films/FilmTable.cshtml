@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Server.DataBase.Film>
+    
+<div class="row">
+    <button class="btn" style="float: right;" onclick="addFilm()">Добавить</button>
+</div>
+<div class="row" id="formDiv">
+</div>
+<div class="row">
+    <table style="width: 100%;">
+        <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Время</th>
+            <th>Стоимость</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var row in Model)
+        {
+            <text>
+                <tr>
+                    <td>@row.Name</td>
+                    <td>@row.Time.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@row.Price.ToString("C")</td>
+                    <td><button type="button" class="btn" onclick="deleteFilm(@row.Id)">X</button></td>
+                </tr>
+            </text>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Список фильмов";
+}
+
+<div id="table"></div>
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            updateTable();
+        });
+
+        function updateTable() {
+            $("#table").load("/films/table");
+        }
+
+        function addFilm(id) {
+            if (id === undefined || id === null)
+                id = 0;
+            $.get("/films/" + id + "/edit", function(data) {
+                $("#formDiv").html(data);
+            });
+        }
+
+        function saveFilm() {
+            var form = $("#formDiv").find("form");
+            form.ajaxSubmit({
+                url: "/films/save",
+                dataType: "json",
+                type: "post",
+                success: function(data) {
+                    if (data) {
+                        updateTable();
+                    }
+                }
+            });
+        }
+
+        function deleteFilm(id) {
+            $.get("/films/" + id + "/delete",
+                function(data) {
+                    if (data) {
+                        updateTable();
+                    }
+                });
+        }
+    </script>
+}
